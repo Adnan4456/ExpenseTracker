@@ -3,7 +3,6 @@ package com.example.expensetracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
@@ -13,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import com.example.expensetracker.common.listOfNav
-import com.example.expensetracker.common.topBar
 import com.example.expensetracker.navigation.NavGraph.AppNavigation
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.example.expensetracker.ui.theme.SystemGray04
@@ -55,7 +53,7 @@ class MainActivity : ComponentActivity() {
                                                 navItem.selectedIcon!!
                                             } else {
                                                 navItem.unSelectedIcon!!
-                                            } ,
+                                            },
                                             contentDescription =""
                                         )
                                     },
@@ -71,7 +69,6 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
-                        color = SystemGray04
                     ) {
                         AppNavigation(navController = navController)
                     }

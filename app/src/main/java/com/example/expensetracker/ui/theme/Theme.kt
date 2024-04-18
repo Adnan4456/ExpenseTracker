@@ -5,11 +5,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColorScheme(
     primary = Primary,
-    background = Surface,
-    surface = Surface,
+    background = Color.Black,
+    surface = Color.Black,
     error = Destructive,
     onPrimary = TextPrimary,
     onSecondary = TextPrimary,
@@ -20,8 +21,8 @@ private val DarkColorPalette = darkColorScheme(
 
 private val LightColorPalette = lightColorScheme(
     primary = Primary,
-    background = Surface,
-    surface = Surface,
+    background = Color.Black,
+    surface = Color.Black,
     error = Destructive,
     onPrimary = TextPrimary,
     onSecondary = TextPrimary,

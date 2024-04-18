@@ -16,5 +16,4 @@ fun  ExpensesScreen() {
     ) {
         Text(text = "Home expenses Screen")
     }
-
 }
