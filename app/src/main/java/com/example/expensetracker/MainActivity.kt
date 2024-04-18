@@ -3,20 +3,20 @@ package com.example.expensetracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
+import com.example.expensetracker.common.listOfNav
 import com.example.expensetracker.common.topBar
 import com.example.expensetracker.navigation.NavGraph.AppNavigation
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
+import com.example.expensetracker.ui.theme.SystemGray04
 
 class MainActivity : ComponentActivity() {
 
@@ -29,21 +29,25 @@ class MainActivity : ComponentActivity() {
                     mutableStateOf(0)
                 }
                 Scaffold(
-                    topBar = {
-                        topBar("Expenses")
-                    },
+                    modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         NavigationBar {
-
-                            val navBackStackEntry  by navController.currentBackStackEntryAsState()
-                            val currentDestination = navBackStackEntry?.destination
 
                             listOfNav.forEachIndexed {index , navItem ->
                                 NavigationBarItem(
                                     selected = selectIndex == index,
                                     onClick = {
                                         selectIndex = index
-                                        navController.navigate(navItem.route)
+                                        navController.navigate(navItem.route){
+
+                                            popUpTo(navController.graph.findStartDestination().id) {
+                                                saveState = true
+                                            }
+
+                                            launchSingleTop = true
+                                            restoreState = true
+
+                                        }
                                     },
                                     icon = {
                                         Icon(
@@ -67,7 +71,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
-                        color = MaterialTheme.colorScheme.background
+                        color = SystemGray04
                     ) {
                         AppNavigation(navController = navController)
                     }

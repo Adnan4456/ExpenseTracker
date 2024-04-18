@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import com.example.expensetracker.navigation.Screens.BottomBarScreen
+import com.example.expensetracker.ui.theme.TopAppBarBackground
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,7 +26,14 @@ fun topBar(title: String) {
             )
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = Color.Black
+            containerColor = TopAppBarBackground
         )
     )
 }
+
+val listOfNav = listOf(
+    BottomBarScreen.Home,
+    BottomBarScreen.Report,
+    BottomBarScreen.Add,
+    BottomBarScreen.Setting
+)

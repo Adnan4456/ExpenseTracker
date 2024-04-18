@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.expensetracker.Add
-import com.example.expensetracker.Home
-import com.example.expensetracker.Report
-import com.example.expensetracker.Setting
+import com.example.expensetracker.feature_addexpenses.ui.AddExpenseScreen
+import com.example.expensetracker.feature_report.ui.ReportScreen
+import com.example.expensetracker.feature_setting.presentation.ui.SettingScreen
+import com.example.expensetracker.feature_showExpense.presentation.ui.ExpensesScreen
 import com.example.expensetracker.navigation.Screens.BottomBarScreen
 
 
@@ -21,19 +21,19 @@ fun AppNavigation(
         startDestination = BottomBarScreen.Home.route,
     ){
         composable(BottomBarScreen.Home.route){
-            Home()
+            ExpensesScreen()
         }
 
         composable(BottomBarScreen.Add.route){
-            Add()
+            AddExpenseScreen()
         }
 
         composable(BottomBarScreen.Setting.route){
-            Setting()
+            SettingScreen()
         }
 
         composable(BottomBarScreen.Report.route){
-            Report()
+            ReportScreen()
         }
     }
 
