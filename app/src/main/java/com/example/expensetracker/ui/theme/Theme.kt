@@ -7,9 +7,15 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColorScheme(
-    primary = Purple200,
-//    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = Primary,
+    background = Surface,
+    surface = Surface,
+    error = Destructive,
+    onPrimary = TextPrimary,
+    onSecondary = TextPrimary,
+    onBackground = TextPrimary,
+    onSurface = TextPrimary,
+    onError = TextPrimary,
 )
 
 private val LightColorPalette = lightColorScheme(
@@ -41,7 +47,7 @@ fun ExpenseTrackerTheme(
     MaterialTheme(
         colorScheme = colors,
         typography = Typography,
-//        shapes = Shapes,
+        shapes = Shapes,
         content = content
     )
 }
