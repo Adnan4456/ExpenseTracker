@@ -30,7 +30,6 @@ import kotlinx.coroutines.delay
 @Composable
 fun AddExpenseScreen() {
 
-
     var amount by remember {
         mutableStateOf("")
     }
@@ -42,12 +41,10 @@ fun AddExpenseScreen() {
 
     val showKeyboard = remember { mutableStateOf(true) }
 
-
-    // LaunchedEffect prevents endless focus request
     LaunchedEffect(focusRequester) {
         if (showKeyboard.equals(true)) {
             focusRequester.requestFocus()
-            delay(100) // Make sure you have delay here
+            delay(100)
             keyboard?.show()
         }else
         {
@@ -77,14 +74,11 @@ fun AddExpenseScreen() {
                     defaultElevation = 10.dp,
                     pressedElevation = 20.dp
                 )
-
-
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
-
                 ) {
                     Row(
                         modifier = Modifier
@@ -132,7 +126,6 @@ fun AddExpenseScreen() {
                         thickness = 1.dp,
                         color = Color.White.copy(.1f)
                     )
-
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
@@ -245,7 +238,6 @@ fun AddExpenseScreen() {
                                 .focusRequester(focusRequester),
                             value = "",
                             onValueChange ={
-
                         } ,
                             singleLine = true,
                             maxLines = 1,
@@ -266,16 +258,13 @@ fun AddExpenseScreen() {
                                 keyboardType = KeyboardType.Text,
                                 imeAction = ImeAction.Next
                             )
-
                         )
                     }
-
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = 1.dp,
                         color = Color.White.copy(.1f)
                     )
-
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
