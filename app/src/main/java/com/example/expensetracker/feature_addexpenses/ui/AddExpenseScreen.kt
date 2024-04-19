@@ -1,24 +1,60 @@
 package com.example.expensetracker.feature_addexpenses.ui
 
-import androidx.compose.foundation.clickable
+import android.graphics.drawable.shapes.Shape
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowRight
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.expensetracker.common.topBar
-import com.example.expensetracker.ui.theme.BackgroundElevated
-import com.example.expensetracker.ui.theme.Destructive
-import com.example.expensetracker.ui.theme.TextPrimary
-import com.example.expensetracker.ui.theme.Typography
+import com.example.expensetracker.ui.theme.*
+import kotlinx.coroutines.delay
+
 @Composable
 fun AddExpenseScreen() {
 
+
+    var amount by remember {
+        mutableStateOf("")
+    }
+
+    val context = LocalContext.current
+
+    val keyboard = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+
+    val showKeyboard = remember { mutableStateOf(true) }
+
+
+    // LaunchedEffect prevents endless focus request
+    LaunchedEffect(focusRequester) {
+        if (showKeyboard.equals(true)) {
+            focusRequester.requestFocus()
+            delay(100) // Make sure you have delay here
+            keyboard?.show()
+        }else
+        {
+            focusRequester.freeFocus()
+            keyboard?.hide()
+        }
+    }
     Scaffold(
         topBar = {
             topBar(title = "Add")
@@ -27,7 +63,8 @@ fun AddExpenseScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
             ElevatedCard(
                 modifier = Modifier
@@ -58,10 +95,180 @@ fun AddExpenseScreen() {
                         Text(text = "Amount",
                             style = Typography.bodyLarge,
                             color = TextPrimary)
-                       Text(text ="150")
+
+                        TextField(
+                            modifier = Modifier
+                                .padding(3.dp)
+                                .defaultMinSize(minWidth = 80.dp, minHeight = 44.dp)
+                                .wrapContentSize(align = Alignment.Center)
+                                .focusRequester(focusRequester),
+                            value = amount,
+                            onValueChange = {
+                                amount = it
+                        },
+                            singleLine = true,
+                            maxLines = 1,
+                            colors = TextFieldDefaults.colors(
+                                cursorColor = Primary,
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor =  Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledContainerColor = Color.Transparent
+                            ),
+                            textStyle  = TextStyle(
+                                color = TextPrimary,
+                                textAlign = TextAlign.End
+                            ),
+                            keyboardOptions = KeyboardOptions(
+                                autoCorrect = false,
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            )
+                        )
+                    }
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        thickness = 1.dp,
+                        color = Color.White.copy(.1f)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        Text(
+                            text = "Recurrance" ,
+                            style = Typography.bodyMedium,
+                            color = TextPrimary
+                        )
+
+                        var recurranceMenuOpened by remember {
+                            mutableStateOf(false)
+                        }
+                        var selectedMenuOption by remember {
+                            mutableStateOf("None")
+                        }
+
+                        TextButton(
+                            onClick = {
+                            recurranceMenuOpened = true
+                        }) {
+
+                            DropdownMenu(
+                                expanded = recurranceMenuOpened,
+                                onDismissRequest = { recurranceMenuOpened = false }) {
+
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "None")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White
+                                            )
+                                        }
+                                    },
+                                    text = { Text(text = "None") },
+                                    onClick = {
+                                        Toast.makeText(context , "Please select option", Toast.LENGTH_SHORT).show()
+                                    })
+
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "Daily")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White)
+                                        }
+                                    },
+                                    text = { Text(text = "Daily") },
+                                    onClick = {
+                                        selectedMenuOption= "Daily"
+                                        recurranceMenuOpened = false
+                                    })
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "Weekly")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White)
+                                        }
+                                    },
+                                    text = { Text(text = "Weekly") },
+                                    onClick = {
+                                        selectedMenuOption= "Weekly"
+                                        recurranceMenuOpened = false
+                                    })
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "Monthly")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White)
+                                        }
+                                    },
+                                    text = { Text(text = "Monthly") },
+                                    onClick = {
+                                        selectedMenuOption= "Monthly"
+                                        recurranceMenuOpened = false
+                                    })
+                            }
+                            Text(text = selectedMenuOption)
+                        }
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        thickness = 1.dp,
+                        color = Color.White.copy(.1f)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        Text(
+                            text = "Date" ,
+                            style = Typography.bodyMedium,
+                            color = TextPrimary
+                        )
+
+                        TextField(
+                            modifier = Modifier
+                                .padding(3.dp)
+                                .defaultMinSize(minWidth = 80.dp, minHeight = 44.dp)
+                                .wrapContentSize(align = Alignment.Center)
+                                .focusRequester(focusRequester),
+                            value = "",
+                            onValueChange ={
+
+                        } ,
+                            singleLine = true,
+                            maxLines = 1,
+                            colors = TextFieldDefaults.colors(
+                                cursorColor = Primary,
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor =  Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledContainerColor = Color.Transparent
+                            ),
+                            textStyle  = TextStyle(
+                                color = TextPrimary,
+                                textAlign = TextAlign.End
+                            ),
+                            keyboardOptions = KeyboardOptions(
+                                autoCorrect = false,
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            )
+
+                        )
+                    }
 
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
@@ -69,20 +276,50 @@ fun AddExpenseScreen() {
                         color = Color.White.copy(.1f)
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
 
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                            },
-                        text = "Recurrance" ,
-                        style = Typography.bodyMedium,
-                        color = TextPrimary
-                    )
+                        Text(
+                            text = "Note" ,
+                            style = Typography.bodyMedium,
+                            color = TextPrimary
+                        )
 
+                        TextField(
+                            modifier = Modifier
+                                .padding(3.dp)
+                                .defaultMinSize(minWidth = 80.dp, minHeight = 44.dp)
+                                .wrapContentSize(align = Alignment.Center)
+                                .focusRequester(focusRequester),
+                            value = "",
+                            onValueChange ={
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                            } ,
+                            singleLine = true,
+                            maxLines = 1,
+                            colors = TextFieldDefaults.colors(
+                                cursorColor = Primary,
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor =  Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledContainerColor = Color.Transparent
+                            ),
+                            textStyle  = TextStyle(
+                                color = TextPrimary,
+                                textAlign = TextAlign.End
+                            ),
+                            keyboardOptions = KeyboardOptions(
+                                autoCorrect = false,
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            )
+
+                        )
+                    }
 
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
@@ -90,62 +327,101 @@ fun AddExpenseScreen() {
                         color = Color.White.copy(.1f)
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                            },
-                        text = "Date" ,
-                        style = Typography.bodyMedium,
-                        color = TextPrimary
-                    )
-
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    HorizontalDivider(
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
-                        thickness = 1.dp,
-                        color = Color.White.copy(.1f)
-                    )
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        var categoryMenuOpened by remember {
+                            mutableStateOf(false)
+                        }
+                        var selectedMenuOption by remember {
+                            mutableStateOf("None")
+                        }
 
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                            },
-                        text = "Note" ,
-                        style = Typography.bodyMedium,
-                        color = TextPrimary
-                    )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "Category" ,
+                            style = Typography.bodyMedium,
+                            color = TextPrimary
+                        )
 
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        thickness = 1.dp,
-                        color = Color.White.copy(.1f)
-                    )
+                        TextButton(
+                            onClick = {
+                                categoryMenuOpened = true
+                            }) {
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                            DropdownMenu(
+                                expanded = categoryMenuOpened,
+                                onDismissRequest = { categoryMenuOpened = false }) {
 
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                            },
-                        text = "Category" ,
-                        style = Typography.bodyMedium,
-                        color = TextPrimary
-                    )
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "None")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White
+                                            )
+                                        }
+                                    },
+                                    text = { Text(text = "None") },
+                                    onClick = {
+                                        Toast.makeText(context , "Please select option", Toast.LENGTH_SHORT).show()
+                                    })
 
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "Hobbies")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White)
+                                        }
+                                    },
+                                    text = { Text(text = "Hobbies") },
+                                    onClick = {
+                                        selectedMenuOption= "Hobbies"
+                                        categoryMenuOpened = false
+                                    })
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "Family")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White)
+                                        }
+                                    },
+                                    text = { Text(text = "Family") },
+                                    onClick = {
+                                        selectedMenuOption= "Family"
+                                        categoryMenuOpened = false
+                                    })
+                                DropdownMenuItem(
+                                    leadingIcon = {
+                                        if(selectedMenuOption == "Bills")    {
+                                            Icon(imageVector =Icons.Filled.Check ,
+                                                contentDescription = "",
+                                                tint = Color.White)
+                                        }
+                                    },
+                                    text = { Text(text = "Bills") },
+                                    onClick = {
+                                        selectedMenuOption= "Bills"
+                                        categoryMenuOpened = false
+                                    })
+                            }
+                            Text(text = selectedMenuOption)
+                        }
+                    }
                 }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                modifier = Modifier.padding(16.dp),
+                shape = Shapes.large,
+                onClick = { }) {
+                Text(text = "Add Expense")
             }
         }
     }
-
 }
