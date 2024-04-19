@@ -7,7 +7,7 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
-val Surface = Color.Black
+val Surface = Color(0xFF3A3A3C)
 val TextPrimary = Color.White
 val Destructive = Color(0xFFFF453A)
 val Primary = Color(0xFF0A84FF)
