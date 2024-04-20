@@ -121,6 +121,8 @@ fun AddExpenseScreen() {
                             )
                         )
                     }
+
+
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = 1.dp,
