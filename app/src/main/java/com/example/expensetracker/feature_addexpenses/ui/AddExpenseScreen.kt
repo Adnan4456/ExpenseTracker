@@ -1,10 +1,11 @@
 package com.example.expensetracker.feature_addexpenses.ui
 
-import android.graphics.drawable.shapes.Shape
+
+import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -26,7 +27,10 @@ import androidx.compose.ui.unit.dp
 import com.example.expensetracker.common.topBar
 import com.example.expensetracker.ui.theme.*
 import kotlinx.coroutines.delay
+import java.text.SimpleDateFormat
+import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddExpenseScreen() {
 
@@ -40,6 +44,20 @@ fun AddExpenseScreen() {
     val focusRequester = remember { FocusRequester() }
 
     val showKeyboard = remember { mutableStateOf(true) }
+
+    val datePickerState = rememberDatePickerState(
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return utcTimeMillis > System.currentTimeMillis()
+            }
+        }
+    )
+
+    var showDatePickerDialog by remember{
+        mutableStateOf(false)
+    }
+
+    var dateInString  = "Select Date"
 
     LaunchedEffect(focusRequester) {
         if (showKeyboard.equals(true)) {
@@ -78,7 +96,9 @@ fun AddExpenseScreen() {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.SpaceAround,
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Row(
                         modifier = Modifier
@@ -128,6 +148,7 @@ fun AddExpenseScreen() {
                         thickness = 1.dp,
                         color = Color.White.copy(.1f)
                     )
+                    Spacer(modifier = Modifier.height(5.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
@@ -214,14 +235,22 @@ fun AddExpenseScreen() {
                         }
                     }
 
+                    Spacer(modifier = Modifier.height(5.dp))
+
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = 1.dp,
                         color = Color.White.copy(.1f)
                     )
 
+                    Spacer(modifier = Modifier.height(15.dp))
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                //open Date dialog
+                                showDatePickerDialog = true
+                            },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -232,36 +261,11 @@ fun AddExpenseScreen() {
                             color = TextPrimary
                         )
 
-                        TextField(
-                            modifier = Modifier
-                                .padding(3.dp)
-                                .defaultMinSize(minWidth = 80.dp, minHeight = 44.dp)
-                                .wrapContentSize(align = Alignment.Center)
-                                .focusRequester(focusRequester),
-                            value = "",
-                            onValueChange ={
-                        } ,
-                            singleLine = true,
-                            maxLines = 1,
-                            colors = TextFieldDefaults.colors(
-                                cursorColor = Primary,
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor =  Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                disabledContainerColor = Color.Transparent
-                            ),
-                            textStyle  = TextStyle(
-                                color = TextPrimary,
-                                textAlign = TextAlign.End
-                            ),
-                            keyboardOptions = KeyboardOptions(
-                                autoCorrect = false,
-                                keyboardType = KeyboardType.Text,
-                                imeAction = ImeAction.Next
-                            )
-                        )
+                        Text(text = dateInString)
                     }
+
+                    Spacer(modifier = Modifier.height(15.dp))
+
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = 1.dp,
@@ -413,6 +417,38 @@ fun AddExpenseScreen() {
                 onClick = { }) {
                 Text(text = "Add Expense")
             }
+
+
+            if(showDatePickerDialog){
+                DatePickerDialog(
+                    onDismissRequest = {
+
+                    }, confirmButton = {
+                        TextButton(onClick = {
+                            showDatePickerDialog = false
+
+                            dateInString = convertLongToTime(datePickerState.selectedDateMillis!!)
+
+                        }) {
+                            Text(text = "Confirm")
+                        }
+
+                }) {
+                    DatePicker(
+                        state = datePickerState,
+                        showModeToggle = true
+                    )
+                }
+            }
         }
     }
+}
+
+@SuppressLint("SimpleDateFormat")
+fun convertLongToTime(
+    time: Long
+):String{
+    val date = Date(time)
+    val format = SimpleDateFormat("dd/MM/yyyy")
+    return format.format(date)
 }
