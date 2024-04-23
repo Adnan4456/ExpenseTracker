@@ -8,6 +8,6 @@ data class Transcation(
     val amount: Double,
     val category: String,
     val account: String,
-    val transcationType: String, // income or expense
+    val transcationType: String,
     val title: String
 )

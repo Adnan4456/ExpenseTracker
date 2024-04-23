@@ -1,7 +1,7 @@
 package com.example.expensetracker.domain.repository
 
-import com.example.expensetracker.data.local.model.entity.AccountDto
-import com.example.expensetracker.data.local.model.entity.TranscationDto
+import com.example.expensetracker.data.local.entity.AccountDto
+import com.example.expensetracker.data.local.entity.TranscationDto
 import kotlinx.coroutines.flow.Flow
 
 interface TranscationRepository {
