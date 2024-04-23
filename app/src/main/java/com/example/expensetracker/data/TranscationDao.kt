@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface TranscationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun  insertTranscation()
+    suspend fun  insertTranscation(dailyTranscation: TranscationDto)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun inserAccount(accounts: List<AccountDto>)
@@ -46,19 +46,22 @@ interface TranscationDao {
     @Query("SELECT * from transcation_table where entry_date BETWEEN date('now','-7 day')  AND  date('now','localTime') AND  transcation_type = :transcationType ")
     fun getWeeklyTranscation(transcationType: String  =  TranscationType.EXPENSE.title): Flow<List<TranscationDto>>
 
-    @Query("SELECT * from transcation_table where entry_date BETWEEN date('now','-3 day')  AND  date('now','localTime') AND  transcation_type = :transcationType ")
+    @Query("SELECT * from transcation_table where entry_date >= date('now','-3 day')  AND  entry_date < date('now','localTime') AND  transcation_type = :transcationType ")
     fun get3DayTranscation(transcationType: String  ): Flow<List<TranscationDto>>
 
-    @Query("SELECT * from transcation_table where entry_date BETWEEN date('now','-7 day')  AND  date('now','localTime') AND  transcation_type = :transcationType ")
+    @Query("SELECT * from transcation_table where entry_date >= date('now','-7 day')  AND entry_date < date('now','localTime') AND  transcation_type = :transcationType ")
     fun get7DayTranscation(transcationType: String): Flow<List<TranscationDto>>
 
-    @Query("SELECT * from transcation_table where entry_date BETWEEN date('now','-14 day')  AND  date('now','localTime') AND  transcation_type = :transcationType ")
+    @Query("SELECT * from transcation_table where entry_date >= date('now','-14 day')  AND entry_date < date('now','localTime') AND  transcation_type = :transcationType ")
     fun get14DayTranscation(transcationType: String): Flow<List<TranscationDto>>
 
     @Query("SELECT * from transcation_table where transcation_type = :transcation_type ")
     fun getTranscationByType(transcation_type : String): Flow<List<TranscationDto>>
 
-//    @Query("Select * from transcation_table where ")
-//    fun getStartOfMonthTranscation(transcationType: String):Flow<List<TranscationDto>>
+    @Query("Select * from transcation_table where entry_date >= date('now','start of month') AND entry_date < date('now','localTime') AND  transcation_type = :transcationType")
+    fun getStartOfMonthTranscation(transcationType: String):Flow<List<TranscationDto>>
+
+    @Query("Select * from transcation_table where entry_date >= date('now','-1 month') AND entry_date < date('now','localTime') AND  transcation_type = :transcationType")
+    fun getLastMonthTranscation(transcationType: String):Flow<List<TranscationDto>>
 
 }
