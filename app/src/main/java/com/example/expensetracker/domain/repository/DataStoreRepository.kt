@@ -25,7 +25,7 @@ interface DataStoreRepository {
 
     suspend fun writeLimitDurationToDataStore(duration :Int)
 
-    suspend fun readLimitDurationToDataStore() : Flow<Int>
+    suspend fun readLimitDurationFromDataStore() : Flow<Int>
 
     suspend fun eraseDataStore()
 }

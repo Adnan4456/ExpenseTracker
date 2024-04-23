@@ -12,7 +12,7 @@ interface TranscationRepository {
 
     fun getDailtTranscation(entryDate : String): Flow<List<TranscationDto>>
 
-    fun getTranscationByAccountType(accountType: String): Flow<TranscationDto>
+    fun getTranscationByAccountType(accountType: String): Flow<List<TranscationDto>>
 
     fun getAccount(account: String):Flow<AccountDto>
 
