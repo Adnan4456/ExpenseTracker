@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
+<!--    <style name="Theme.ExpenseTracker" parent="android:Theme.Material.Light.NoActionBar">-->
+<!--        <item name="android:statusBarColor">@color/topbar</item>-->
+<!--    </style>-->
+
+
+    <bool name="lightNavEnabled">true</bool>
+    <!-- Base application theme. -->
     <style name="Theme.ExpenseTracker" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/topbar</item>
+        <!-- Primary brand color. -->
+        <item name="android:colorPrimary">@color/white</item>
+        <item name="android:colorPrimaryDark">@color/light_blue_400</item>
+<!--        <item name="android:colorOnPrimary">@color/white</item>-->
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/light_blue_400</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/lightNavEnabled</item>
+        <item name="android:navigationBarColor" tools:targetApi="o">?android:colorSecondary</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">@bool/lightNavEnabled</item>
     </style>
+
+    <style name="Theme.ExpenseTracker.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+<!--    <style name="Theme.ExpenseTracker.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+<!--    <style name="Theme.ExpenseTracker.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
 </resources>

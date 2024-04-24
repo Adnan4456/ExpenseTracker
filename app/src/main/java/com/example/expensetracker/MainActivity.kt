@@ -13,6 +13,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import com.example.expensetracker.common.listOfNav
 import com.example.expensetracker.navigation.NavGraph.AppNavigation
+import com.example.expensetracker.presentation.welcome_screen.welcome_screen
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.example.expensetracker.ui.theme.SystemGray04
 
@@ -28,49 +29,50 @@ class MainActivity : ComponentActivity() {
                 }
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    bottomBar = {
-                        NavigationBar {
-
-                            listOfNav.forEachIndexed {index , navItem ->
-                                NavigationBarItem(
-                                    selected = selectIndex == index,
-                                    onClick = {
-                                        selectIndex = index
-                                        navController.navigate(navItem.route){
-
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
-                                            }
-
-                                            launchSingleTop = true
-                                            restoreState = true
-
-                                        }
-                                    },
-                                    icon = {
-                                        Icon(
-                                            imageVector = if (index==selectIndex){
-                                                navItem.selectedIcon!!
-                                            } else {
-                                                navItem.unSelectedIcon!!
-                                            },
-                                            contentDescription =""
-                                        )
-                                    },
-                                    label = {
-                                        Text(text = navItem.title)
-                                    }
-                                )
-                            }
-                        }
-                    }
+//                    bottomBar = {
+//                        NavigationBar {
+//
+//                            listOfNav.forEachIndexed {index , navItem ->
+//                                NavigationBarItem(
+//                                    selected = selectIndex == index,
+//                                    onClick = {
+//                                        selectIndex = index
+//                                        navController.navigate(navItem.route){
+//
+//                                            popUpTo(navController.graph.findStartDestination().id) {
+//                                                saveState = true
+//                                            }
+//
+//                                            launchSingleTop = true
+//                                            restoreState = true
+//
+//                                        }
+//                                    },
+//                                    icon = {
+//                                        Icon(
+//                                            imageVector = if (index==selectIndex){
+//                                                navItem.selectedIcon!!
+//                                            } else {
+//                                                navItem.unSelectedIcon!!
+//                                            },
+//                                            contentDescription =""
+//                                        )
+//                                    },
+//                                    label = {
+//                                        Text(text = navItem.title)
+//                                    }
+//                                )
+//                            }
+//                        }
+//                    }
                 ) {innerPadding ->
                     Surface(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding),
                     ) {
-                        AppNavigation(navController = navController)
+                        welcome_screen()
+                    //  AppNavigation(navController = navController)
                     }
 
                 }
