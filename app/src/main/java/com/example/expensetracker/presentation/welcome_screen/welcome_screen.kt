@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.expensetracker.presentation.welcome_screen.pages.PageScreen
 
 import com.example.expensetracker.presentation.welcome_screen.pages.onBoardingPages
 
@@ -46,7 +47,7 @@ fun myPager(){
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ){
-            Text(text = pagerScreen[pager].title)
+            PageScreen(pagerScreen[pager])
         }
     }
 }

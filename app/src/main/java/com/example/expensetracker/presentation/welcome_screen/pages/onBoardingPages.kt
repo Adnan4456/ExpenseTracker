@@ -10,14 +10,16 @@ sealed class onBoardingPages(
     val description: String
 ){
      class FirstPage:onBoardingPages(
-        R.drawable.blank_list,"First Page","Swipe "
+        R.drawable.entry,"Add entries", "Keep track of your income and expenses"
     )
 
     class SecondPage:onBoardingPages(
-        R.drawable.blank_list,"Second Page","Swipe"
+        R.drawable.insight,"Check insights",
+        "Detailed weekly and monthly charts based on your entries"
     )
 
     class ThirdPage : onBoardingPages(
-        R.drawable.blank_list,"Third Page","Swipe"
+        R.drawable.decision,"Make right decisions",
+        "Control your money flow and stay on top of your game"
     )
 }
