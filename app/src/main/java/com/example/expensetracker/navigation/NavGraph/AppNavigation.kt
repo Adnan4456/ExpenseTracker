@@ -9,6 +9,7 @@ import com.example.expensetracker.feature_report.ui.ReportScreen
 import com.example.expensetracker.feature_setting.presentation.ui.SettingScreen
 import com.example.expensetracker.feature_showExpense.presentation.ui.ExpensesScreen
 import com.example.expensetracker.navigation.Screens.BottomBarScreen
+import com.example.expensetracker.presentation.welcome_screen.welcome_screen
 
 
 @Composable
@@ -25,7 +26,8 @@ fun AppNavigation(
         }
 
         composable(BottomBarScreen.Add.route){
-            AddExpenseScreen()
+//            AddExpenseScreen()
+            welcome_screen()
         }
 
         composable(BottomBarScreen.Setting.route){
@@ -36,7 +38,7 @@ fun AppNavigation(
             ReportScreen()
         }
         composable("category"){
-            CategoryScreen()
+//            CategoryScreen()
         }
     }
 
