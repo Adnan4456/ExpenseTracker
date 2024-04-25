@@ -20,4 +20,6 @@ fun PageScreen(
             painter = painterResource(id = page.icon),
             contentDescription = "")
     }
+
+
 }
