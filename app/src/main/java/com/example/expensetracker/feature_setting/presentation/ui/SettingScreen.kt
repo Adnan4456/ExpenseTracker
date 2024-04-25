@@ -13,10 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.expensetracker.common.topBar
-import com.example.expensetracker.ui.theme.BackgroundElevated
-import com.example.expensetracker.ui.theme.Destructive
-import com.example.expensetracker.ui.theme.Typography
-import com.example.expensetracker.ui.theme.TextPrimary
 
 @Composable
 fun SettingScreen(
@@ -37,7 +33,7 @@ Scaffold(
             modifier = Modifier
                 .padding(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = BackgroundElevated
+//                containerColor = BackgroundElevated
             ) ,
             shape = RoundedCornerShape(10.dp),
             elevation = CardDefaults.cardElevation(
@@ -63,8 +59,9 @@ Scaffold(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(text = "Categories",
-                    style = Typography.bodyLarge,
-                    color = TextPrimary)
+                    style = MaterialTheme.typography.bodyLarge,
+//                    color = TextPrimary
+                    )
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowRight, contentDescription = "")
                 }
 
@@ -84,8 +81,8 @@ Scaffold(
 
                         },
                     text = "Delete all" ,
-                    style = Typography.bodyMedium,
-                    color = Destructive
+                    style = MaterialTheme.typography.bodyMedium,
+//                    color = Destructive
                 )
             }
         }

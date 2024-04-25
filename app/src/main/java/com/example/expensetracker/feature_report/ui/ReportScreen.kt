@@ -41,13 +41,13 @@ fun ReportScreen() {
 
                 BarChart(
                     listOf(
-                        BarchartInput(28,"Kotlin", Purple200),
-                        BarchartInput(15,"Swift", Purple700),
-                        BarchartInput(11,"Ruby", Teal200),
-                        BarchartInput(7,"Cobol", TextPrimary),
-                        BarchartInput(14,"C++", Primary),
-                        BarchartInput(9,"C", LabelSecondary),
-                        BarchartInput(21,"Python", Destructive)
+//                        BarchartInput(28,"Kotlin", Purple200),
+//                        BarchartInput(15,"Swift", Purple700),
+//                        BarchartInput(11,"Ruby", Teal200),
+//                        BarchartInput(7,"Cobol", TextPrimary),
+//                        BarchartInput(14,"C++", Primary),
+//                        BarchartInput(9,"C", LabelSecondary),
+//                        BarchartInput(21,"Python", Destructive)
                     ),
                     modifier = Modifier
                         .fillMaxWidth(),
