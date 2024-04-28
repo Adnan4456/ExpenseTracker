@@ -9,13 +9,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import com.example.expensetracker.common.listOfNav
 import com.example.expensetracker.navigation.NavGraph.AppNavigation
 import com.example.expensetracker.presentation.welcome_screen.welcome_screen
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
-import com.example.expensetracker.ui.theme.SystemGray04
 
 class MainActivity : ComponentActivity() {
 
