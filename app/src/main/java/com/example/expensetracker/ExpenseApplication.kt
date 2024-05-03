@@ -1,9 +1,8 @@
-package com.example.expensetracker.di
+package com.example.expensetracker
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
-
 @HiltAndroidApp
-class ExpenseApplication : Application(){
+class ExpenseApplication: Application() {
 }
