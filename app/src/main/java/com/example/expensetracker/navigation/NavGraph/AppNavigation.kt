@@ -27,7 +27,7 @@ fun AppNavigation(
 
         composable(BottomBarScreen.Add.route){
 //            AddExpenseScreen()
-            welcome_screen()
+            welcome_screen(navController)
         }
 
         composable(BottomBarScreen.Setting.route){
