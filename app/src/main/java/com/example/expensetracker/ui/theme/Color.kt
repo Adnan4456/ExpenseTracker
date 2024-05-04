@@ -274,12 +274,12 @@ val customColor2ContainerDarkHighContrast = Color(0xFFFBB6E4)
 val onCustomColor2ContainerDarkHighContrast = Color(0xFF000000)
 
 val incomeGradient = Brush.horizontalGradient(
-    0.0f to customColor1DarkHighContrast,
+    0.0f to customColor1DarkMediumContrast,
     0.95f to customColor1ContainerDarkHighContrast
 )
 
 val expenseGradient = Brush.horizontalGradient(
-    0.0f to customColor2DarkHighContrast,
+    0.0f to customColor2DarkMediumContrast,
     0.95f to customColor2ContainerDarkHighContrast
 )
 

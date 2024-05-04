@@ -10,9 +10,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.expensetracker.navigation.NavGraph.AppNavigation
 import com.example.expensetracker.presentation.welcome_screen.welcome_screen
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +34,8 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(innerPadding),
                     ) {
-                        welcome_screen()
-                    //  AppNavigation(navController = navController)
+//                        welcome_screen(navController)
+                      AppNavigation(navController = navController)
                     }
                 }
             }
