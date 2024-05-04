@@ -17,14 +17,34 @@ import java.util.*
 import javax.inject.Inject
 
 import com.example.expensetracker.domain.model.Transcation
+import com.example.expensetracker.domain.usecase.read_database.GetAccountsUseCase
+import com.example.expensetracker.feature_showExpense.presentation.ui.component.Tabs
+import kotlinx.coroutines.Dispatchers
+import java.math.RoundingMode
+import java.text.DecimalFormat
+
 @HiltViewModel
 class HomeViewModel
     @Inject constructor(
-     private val  getDateUseCase:GetDateUseCase,
-     private val getFormattedDateUseCase: GetDateFormattedUseCase,
-     private val getCurrentDayExpTranscationUseCase: GetCurrentDayExpTranscationUseCase,
-     private val getDailyTransactionUseCase: GetDailyTranscationUseCase,
+        private val  getDateUseCase:GetDateUseCase,
+        private val getFormattedDateUseCase: GetDateFormattedUseCase,
+        private val getCurrentDayExpTranscationUseCase: GetCurrentDayExpTranscationUseCase,
+        private val getDailyTransactionUseCase: GetDailyTranscationUseCase,
+        private val getAccountsUseCase: GetAccountsUseCase,
 ): ViewModel() {
+
+
+    var tabButton= MutableStateFlow(Tabs.TODAY)
+        private set
+
+    var selectedCurrencyCode = MutableStateFlow(String())
+        private set
+
+    var totalIncome = MutableStateFlow(0.0)
+        private set
+
+    var totalExpense = MutableStateFlow(0.0)
+        private set
 
     var currentTime = MutableStateFlow(Calendar.getInstance().time)
         private set
@@ -54,5 +74,33 @@ class HomeViewModel
                 }
             }
         }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            getAccountsUseCase().collect { accountsDto ->
+                val accounts = accountsDto.map { it.toAccount() }
+                val income = calculateTransaction(accounts.map { it.income })
+                val expense = calculateTransaction(accounts.map { it.expense })
+
+                totalIncome.value = income
+                totalExpense.value = expense
+            }
+        }
     }
+
+    private fun calculateTransaction(transactions: List<Double>): Double {
+        return transactions.sumOf {
+            it
+        }
+    }
+
+    fun selectTab(button :Tabs){
+        tabButton.value = button
+    }
+}
+fun String.amountFormat(): String {
+
+    //defining formator
+    val amountFormatter = DecimalFormat("#,##0.00")
+    //amountFormatter.roundingMode = RoundingMode.CEILING // we can also scale the amount
+    return " " + amountFormatter.format(this.toDouble())
 }
