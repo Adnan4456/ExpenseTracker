@@ -18,6 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,7 +30,13 @@ class MainActivity : ComponentActivity() {
                 }
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                ) {innerPadding ->
+                    bottomBar = {
+                        NavigationBar {
+
+                        }
+                    },
+                    floatingActionButtonPosition = FabPosition.Center,
+                    ) {innerPadding ->
                     Surface(
                         modifier = Modifier
                             .fillMaxSize()
