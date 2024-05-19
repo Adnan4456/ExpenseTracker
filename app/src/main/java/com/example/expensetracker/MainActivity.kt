@@ -3,9 +3,7 @@ package com.example.expensetracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
@@ -74,17 +72,39 @@ class MainActivity : ComponentActivity() {
                                 sheetState = sheetState,
                             ) {
                                 //sheet content
-                                Button(onClick = {
-                                    scope.launch {
-                                        sheetState.hide()
-                                    }.invokeOnCompletion {
-                                        if (!sheetState.isVisible){
-                                            showBottomSheet = false
+
+                                Row (
+                                    modifier = Modifier.fillMaxWidth()
+                                        ){
+
+                                    Button(onClick = {
+                                        scope.launch {
+                                            sheetState.hide()
+                                        }.invokeOnCompletion {
+                                            if (!sheetState.isVisible){
+                                                showBottomSheet = false
+                                            }
                                         }
+                                    }) {
+
+                                        Text(text = "Add Expense")
                                     }
-                                }) {
-                                    Text(text = "Hide Bottom sheet")
+
+                                    Button(onClick = {
+                                        scope.launch {
+                                            sheetState.hide()
+                                        }.invokeOnCompletion {
+                                            if (!sheetState.isVisible){
+                                                showBottomSheet = false
+                                            }
+                                        }
+                                    }) {
+
+                                        Text(text = "Add Balance")
+                                    }
                                 }
+
+
                             }
                         }
                     }
