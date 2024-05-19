@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomBarScreen(
     val title: String,
-    val selectedIcon: ImageVector? = null,
-    val unSelectedIcon: ImageVector? = null,
+    val selectedIcon:ImageVector? = null,
+    val unSelectedIcon:ImageVector? = null,
     val route:String
 ){
 

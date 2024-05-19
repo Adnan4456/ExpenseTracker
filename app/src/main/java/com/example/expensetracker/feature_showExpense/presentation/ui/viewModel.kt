@@ -3,6 +3,7 @@ package com.example.expensetracker.feature_showExpense.presentation.ui
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Transaction
 
 import com.example.expensetracker.domain.usecase.GetDateFormattedUseCase
 import com.example.expensetracker.domain.usecase.GetDateUseCase
@@ -12,15 +13,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.security.PrivateKey
 import java.util.*
 import javax.inject.Inject
 
 import com.example.expensetracker.domain.model.Transcation
 import com.example.expensetracker.domain.usecase.read_database.GetAccountsUseCase
+import com.example.expensetracker.domain.usecase.read_database.GetAllTranscationUseCase
 import com.example.expensetracker.feature_showExpense.presentation.ui.component.Tabs
 import kotlinx.coroutines.Dispatchers
-import java.math.RoundingMode
 import java.text.DecimalFormat
 
 @HiltViewModel
@@ -31,6 +31,7 @@ class HomeViewModel
         private val getCurrentDayExpTranscationUseCase: GetCurrentDayExpTranscationUseCase,
         private val getDailyTransactionUseCase: GetDailyTranscationUseCase,
         private val getAccountsUseCase: GetAccountsUseCase,
+        private val getAllTransactionUseCase: GetAllTranscationUseCase,
 ): ViewModel() {
 
 
@@ -57,6 +58,10 @@ class HomeViewModel
 
     var dailyTransaction = MutableStateFlow(emptyList<Transcation>())
         private set
+
+    var monthlyTransaction = MutableStateFlow(mapOf<String, List<Transaction>>())
+        private set
+
     init {
 
         val currentDate = getDateUseCase()
@@ -83,6 +88,19 @@ class HomeViewModel
 
                 totalIncome.value = income
                 totalExpense.value = expense
+            }
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            getAllTransactionUseCase().collect { allTransaction ->
+                allTransaction?.let {
+                  val sortedTrans =   allTransaction.map {
+                        it.toTranscation()
+                    }.reversed()
+//                    monthlyTransaction.value = sortedTrans.groupBy{
+//
+//                    }
+                }
             }
         }
     }

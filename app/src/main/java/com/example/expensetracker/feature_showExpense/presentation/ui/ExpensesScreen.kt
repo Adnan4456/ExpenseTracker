@@ -38,6 +38,8 @@ import com.example.expensetracker.R
 import com.example.expensetracker.feature_showExpense.presentation.ui.component.EmptyPlaceholder
 import com.example.expensetracker.feature_showExpense.presentation.ui.component.Tabs
 import com.example.expensetracker.feature_showExpense.presentation.ui.component.TabsButton
+import com.example.expensetracker.ui.theme.customColor1DarkMediumContrast
+import com.example.expensetracker.ui.theme.customColor2DarkMediumContrast
 import com.example.expensetracker.ui.theme.expenseGradient
 import com.example.expensetracker.ui.theme.incomeGradient
 import com.example.expensetracker.utils.spacing
@@ -178,11 +180,13 @@ fun Header(homeViewModel: HomeViewModel){
                             modifier= Modifier.size(10.dp),
                             painter = painterResource(id = R.drawable.arrow_downward),
                             contentDescription = "",
+                            tint = customColor1DarkMediumContrast
                         )
                         Icon(
                             modifier= Modifier.size(20.dp),
                             painter = painterResource(id = R.drawable.camera),
                             contentDescription = "",
+                            tint = customColor1DarkMediumContrast
                         )
                     }
 
@@ -234,11 +238,13 @@ fun Header(homeViewModel: HomeViewModel){
                             modifier= Modifier.size(10.dp),
                             painter = painterResource(id = R.drawable.arrow_upward),
                             contentDescription = "",
+                            tint = customColor2DarkMediumContrast
                         )
                         Icon(
                             modifier= Modifier.size(20.dp),
                             painter = painterResource(id = R.drawable.camera),
                             contentDescription = "",
+                            tint = customColor2DarkMediumContrast
                         )
                     }
 
