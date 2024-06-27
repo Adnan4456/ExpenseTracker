@@ -1,6 +1,7 @@
 package com.example.expensetracker.di
 
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.room.Room
 import com.example.expensetracker.data.TransactionDatabase
 import com.example.expensetracker.data.TranscationDao

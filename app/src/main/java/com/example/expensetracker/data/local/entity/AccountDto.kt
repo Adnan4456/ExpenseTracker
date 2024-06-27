@@ -1,12 +1,15 @@
 package com.example.expensetracker.data.local.entity
 
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.expensetracker.domain.model.Account
 
 
+
 @Entity(tableName = "accounts_table")
+@Keep
 data class AccountDto(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("_id")

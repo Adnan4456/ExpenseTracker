@@ -1,5 +1,6 @@
 package com.example.expensetracker.data
 
+import androidx.annotation.Keep
 import androidx.room.*
 import com.example.expensetracker.common.TranscationType
 import com.example.expensetracker.data.local.entity.AccountDto
@@ -7,6 +8,7 @@ import com.example.expensetracker.data.local.entity.TranscationDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+@Keep
 interface TranscationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

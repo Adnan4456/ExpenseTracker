@@ -5,13 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.expensetracker.data.local.entity.AccountDto
-import com.example.expensetracker.domain.model.Account
 import com.example.expensetracker.domain.model.CurrencyModel
 import com.example.expensetracker.domain.usecase.GetCurrencyUseCase
 import com.example.expensetracker.domain.usecase.write_database.InsertAccountsUseCase
 import com.example.expensetracker.domain.usecase.write_datastore.EditCurrencyUseCase
 import com.example.expensetracker.domain.usecase.write_datastore.EditOnBoardingKeyUseCase
-import com.example.expensetracker.presentation.welcome_screen.pages.onBoardingPages
+import com.example.expensetracker.presentation.home_screen.Account
+import com.example.expensetracker.presentation.welcome_screen.components.OnBoardingPage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -32,10 +32,10 @@ class WelcomeViewModel @Inject constructor(
         countryCurrencies.value = getCurrencyUseCase().groupBy { it.country[0] }
     }
 
-    val listOfPages: State<List<onBoardingPages>> = mutableStateOf(listOf(
-        onBoardingPages.FirstPage(),
-        onBoardingPages.SecondPage(),
-        onBoardingPages.ThirdPage()
+    val listOfPages: State<List<OnBoardingPage>> = mutableStateOf(listOf(
+        OnBoardingPage.FirstPage,
+        OnBoardingPage.SecondPage,
+        OnBoardingPage.ThirdPage
     ))
 
     fun saveOnBoardingState(completed: Boolean) {
@@ -50,15 +50,15 @@ class WelcomeViewModel @Inject constructor(
         }
     }
 
-//    fun createAccounts() {
-//        viewModelScope.launch(IO) {
-//            insertAccountsUseCase.invoke(
-//                listOf(
-//                    AccountDto(1, Account.CASH.title, 0.0, 0.0, 0.0),
-//                    AccountDto(2, Account.BANK.title, 0.0, 0.0, 0.0),
-//                    AccountDto(3, Account.CARD.title, 0.0, 0.0, 0.0)
-//                )
-//            )
-//        }
-//    }
+    fun createAccounts() {
+        viewModelScope.launch(IO) {
+            insertAccountsUseCase.invoke(
+                listOf(
+                    AccountDto(1, Account.CASH.title, 0.0, 0.0, 0.0),
+                    AccountDto(2, Account.BANK.title, 0.0, 0.0, 0.0),
+                    AccountDto(3, Account.CARD.title, 0.0, 0.0, 0.0)
+                )
+            )
+        }
+    }
 }

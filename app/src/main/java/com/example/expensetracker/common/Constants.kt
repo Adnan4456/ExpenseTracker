@@ -11,5 +11,7 @@ class Constants {
         const val EXPENSE_LIMIT_KEY = "expense_limit"
         const val LIMIT_DURATION = "limit_duration"
         const val WELCOME_KEY = "welcome"
+        const val PRIVACY_URL = "https://github.com/Adnan4456"
+
     }
 }

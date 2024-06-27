@@ -1,5 +1,6 @@
 package com.example.expensetracker.data.local.entity
 
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,6 +9,7 @@ import java.util.*
 
 
 @Entity(tableName = "transcation_table")
+@Keep
 data class TranscationDto(
     @PrimaryKey
     @ColumnInfo(name = "timestamp")

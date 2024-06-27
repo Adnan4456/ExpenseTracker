@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import com.example.expensetracker.navigation.Screens.BottomBarScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,9 +34,9 @@ fun topBar(title: String) {
     )
 }
 
-val listOfNav = listOf(
-    BottomBarScreen.Home,
-    BottomBarScreen.Report,
-    BottomBarScreen.Add,
-    BottomBarScreen.Setting
-)
+//val listOfNav = listOf(
+//    BottomBarScreen.Home,
+//    BottomBarScreen.Report,
+//    BottomBarScreen.Add,
+//    BottomBarScreen.Setting
+//)
