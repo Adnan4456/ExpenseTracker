@@ -3,6 +3,7 @@ package com.example.expensetracker.presentation.home_screen.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,7 +50,8 @@ import kotlin.math.abs
 @Composable
 fun Header(
     bottomSheetScaffoldState: BottomSheetScaffoldState,
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    onPDF: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -127,6 +129,13 @@ fun Header(
                     )
                 }
 
+                Text(
+                    modifier = Modifier
+                        .clickable {
+                            onPDF()
+                        },
+                    text = "Pdf"
+                )
                 Text(
                     text = "Balance",
                     style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Normal),

@@ -1,20 +1,26 @@
 package com.example.expensetracker.pdf.presentation
 
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.expensetracker.R
+import androidx.navigation.NavHostController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExportScreen(
     viewModel: ExportViewModel = hiltViewModel(),
-    onBack: () -> Unit
+    navController: NavHostController,
+    onBack: () -> Unit,
+
 ) {
     val context = LocalContext.current
     val exportState by viewModel.exportState.collectAsState()

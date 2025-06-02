@@ -9,6 +9,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.expensetracker.pdf.presentation.ExportScreen
 import com.example.expensetracker.presentation.account_screen.AccountDetailScreen
 import com.example.expensetracker.presentation.account_screen.AccountScreen
 import com.example.expensetracker.presentation.home_screen.HomeScreen
@@ -29,6 +30,12 @@ fun MainNavigation(
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = Screen.WelcomeScreen.route) {
             WelcomeScreen(navController = navController)
+        }
+        composable(route = Screen.PDFScreen.route){
+            ExportScreen(navController = navController,
+                onBack = {
+
+            })
         }
         composable(route = "${Screen.CurrencyScreen.route}/{setting}",
             arguments = listOf(
