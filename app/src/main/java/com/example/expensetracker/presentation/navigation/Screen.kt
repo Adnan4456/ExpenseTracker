@@ -9,4 +9,5 @@ sealed class Screen(val route: String) {
     object AccountScreen: Screen("account")
     object AccountDetailScreen: Screen("detail")
     object SettingScreen: Screen("setting")
+    object PDFScreen: Screen("ExportScreen")
 }

@@ -68,7 +68,10 @@ fun HomeScreen(
         ) {
 
             // header
-            Header(bottomSheetScaffoldState)
+            Header(bottomSheetScaffoldState,
+                onPDF = {
+                    navController.navigate( Screen.PDFScreen.route)
+                })
 
             // Button tabs
             TabButton()

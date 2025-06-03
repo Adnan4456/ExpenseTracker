@@ -109,4 +109,8 @@ dependencies {
 
     // DataStore Preferences
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //PDF generator
+    implementation 'com.itextpdf:itext7-core:7.2.5'
+
 }
